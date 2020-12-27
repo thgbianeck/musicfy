@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Icon, Form, Input } from "semantic-ui-react";
 import firebase from "../../../utils/Firebase";
 import "firebase/auth";
@@ -7,26 +7,33 @@ import "./RegisterForm.scss";
 
 export default function RegisterForm(props) {
   const { setSelectedForm } = props;
-  //   const [formData, setFormData] = useState(defaultValueForm());
+  const [formData, setFormData] = useState(defaultValueForm());
   //   const [showPassword, setShowPassword] = useState(false);
   //   const [formError, setFormError] = useState({});
   //   const [isLoading, setIsLoading] = useState(false);
 
+  const onChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const onSubmit = () => {
     console.log("Formulario enviado");
+    console.log(formData);
   };
 
   return (
     <div className="register-form">
       <h1>Empieza a escuchar con una cuenta de Musicfy gratis.</h1>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} onChange={onChange}>
         <Form.Field>
           <Input
             type="text"
             name="email"
             placeholder="Correo electrónico"
             icon="mail outline"
-            // onChange={}
             // error={}
           />
         </Form.Field>
@@ -36,7 +43,6 @@ export default function RegisterForm(props) {
             name="password"
             placeholder="Contraseña"
             icon="eye"
-            // onChange={}
             // error={}
           />
         </Form.Field>
@@ -46,7 +52,6 @@ export default function RegisterForm(props) {
             name="username"
             placeholder="Como deríamos llamarte?"
             icon="user circle outline"
-            // onChange={}
             // error={}
           />
         </Form.Field>
@@ -61,4 +66,12 @@ export default function RegisterForm(props) {
       </div>
     </div>
   );
+}
+
+function defaultValueForm() {
+  return {
+    email: "",
+    password: "",
+    username: "",
+  };
 }
