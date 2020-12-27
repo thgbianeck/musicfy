@@ -15,8 +15,7 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "4.0.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.1",
-    "web-vitals": "^0.2.4"
+    "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,9 +43,19 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
-    "electron": "^11.1.1",
-    "electron-builder": "^22.9.1",
-    "wait-on": "^5.2.0"
+    "concurrently": "^5.1.0",
+    "electron": "^8.0.0",
+    "electron-builder": "^22.3.2",
+    "wait-on": "^4.0.0"
+  },
+  "build": {
+    "appId": "com.bianeck.musicfy",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   }
 }
