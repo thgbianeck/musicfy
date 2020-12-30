@@ -61,29 +61,29 @@ export default function RegisterForm(props) {
           setSelectedForm(null);
         });
     }
+  };
 
-    const changeUserName = () => {
-      firebase
-        .auth()
-        .currentUser.updateProfile({
-          displayName: formData.username,
-        })
-        .catch(() => {
-          toast.error("Error al asignar el nombre de usuario.");
-        });
-    };
+  const changeUserName = () => {
+    firebase
+      .auth()
+      .currentUser.updateProfile({
+        displayName: formData.username,
+      })
+      .catch(() => {
+        toast.error("Error al asignar el nombre de usuario.");
+      });
+  };
 
-    const sendVerificationEmail = () => {
-      firebase
-        .auth()
-        .currentUser.sendEmailVerification()
-        .then(() => {
-          toast.success("Se ha enviado un email de verificacion.");
-        })
-        .catch(() => {
-          toast.error("Error al enviar el email de verificacion.");
-        });
-    };
+  const sendVerificationEmail = () => {
+    firebase
+      .auth()
+      .currentUser.sendEmailVerification()
+      .then(() => {
+        toast.success("Se ha enviado un email de verificacion.");
+      })
+      .catch(() => {
+        toast.error("Error al enviar el email de verificacion.");
+      });
   };
 
   return (
@@ -109,14 +109,18 @@ export default function RegisterForm(props) {
             type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Contraseña"
-            icon={
-              <Icon
-                name={"eye" + (showPassword ? " slash outline" : "")}
-                link
-                onClick={handlerShowPassword}
-              />
-            }
             error={formError.password}
+            icon={
+              showPassword ? (
+                <Icon
+                  name="eye slash outline"
+                  link
+                  onClick={handlerShowPassword}
+                />
+              ) : (
+                <Icon name="eye" link onClick={handlerShowPassword} />
+              )
+            }
           />
           {formError.password && (
             <span className="error-text">
@@ -128,7 +132,7 @@ export default function RegisterForm(props) {
           <Input
             type="text"
             name="username"
-            placeholder="Como deríamos llamarte?"
+            placeholder="¿Como deberíamos llamarte?"
             icon="user circle outline"
             error={formError.username}
           />
@@ -136,12 +140,15 @@ export default function RegisterForm(props) {
             <span className="error-text">Por favor, introduce un nombre.</span>
           )}
         </Form.Field>
-        <Button type="submit">Continuar</Button>
+        <Button type="submit" loading={isLoading}>
+          Continuar
+        </Button>
       </Form>
+
       <div className="register-form__options">
         <p onClick={() => setSelectedForm(null)}>Volver</p>
         <p>
-          Ya tiénes Musicfy?{" "}
+          ¿Ya tiénes Musicfy?{" "}
           <span onClick={() => setSelectedForm("login")}>Iniciar sesión</span>
         </p>
       </div>
